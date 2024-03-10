@@ -12,7 +12,7 @@ function App() {
 
   const [bookmark, setBookmark] = useState([]);
   const [creditHour, setCreditHour] = useState(20);
-  const [totalCreditHour, setTotalCreditHour] = useState(0)
+  const [totalCreditHour, setTotalCreditHour] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const addToBookmark = (course) => {
@@ -39,13 +39,16 @@ function App() {
 
   return (
     <>
-     
-
       <Header></Header>
       <Toaster></Toaster>
       <div className="md:flex max-w-7xl mx-auto">
         <Courses addToBookmark={addToBookmark}></Courses>
-        <Sidebar bookmark={bookmark} creditHour={creditHour} totalPrice={totalPrice} totalCreditHour={totalCreditHour}></Sidebar>
+        <Sidebar
+          bookmark={bookmark}
+          creditHour={creditHour}
+          totalPrice={totalPrice}
+          totalCreditHour={totalCreditHour}
+        ></Sidebar>
       </div>
     </>
   );

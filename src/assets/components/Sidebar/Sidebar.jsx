@@ -1,5 +1,6 @@
 import React from "react";
 import Bookmark from "../Bookmark/Bookmark";
+import PropTypes from "prop-types";
 
 const Sidebar = ({ bookmark, creditHour, totalCreditHour, totalPrice }) => {
   const formattedTotalPrice = totalPrice.toFixed(2);
@@ -26,6 +27,12 @@ const Sidebar = ({ bookmark, creditHour, totalCreditHour, totalPrice }) => {
       </h2>
     </div>
   );
+};
+Sidebar.propTypes = {
+  bookmark: PropTypes.func.isRequired,
+  totalCreditHour: PropTypes.func.isRequired,
+  totalPrice: PropTypes.func.isRequired,
+  creditHour: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
