@@ -11,29 +11,41 @@ function App() {
   const [count, setCount] = useState(0);
 
   const [bookmark, setBookmark] = useState([]);
+  const [creditHour, setCreditHour] = useState(20);
+  const [totalCreditHour, setTotalCreditHour] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const addToBookmark = course => {
+  const addToBookmark = (course) => {
+    const existingCourse = bookmark.filter((item) => item.id === course.id);
 
-    const existingCourse = bookmark.filter(item => item.id === course.id)
-  
-    console.log('Existing Course', existingCourse);
-    if(existingCourse.length === 0){
-      const newBookmarks = [...bookmark, course];
-      setBookmark(newBookmarks);
-    } else{
-      toast.error("Course Already Exists")
+    // console.log("Existing Course", existingCourse);
+    if (existingCourse.length === 0) {
+      const totalCreditHours = creditHour - course.credit_hour;
+      const plusCreditHours = totalCreditHour + course.credit_hour;
+      const newPrice = totalPrice + course.price;
+      if (creditHour <= 0) {
+        toast.error("Your credit is over");
+      } else {
+        const newBookmarks = [...bookmark, course];
+        setBookmark(newBookmarks);
+        setCreditHour(totalCreditHours);
+        setTotalCreditHour(plusCreditHours);
+        setTotalPrice(newPrice);
+      }
+    } else {
+      toast.error("Course Already Exists");
     }
-    
   };
-  
 
   return (
     <>
+     
+
       <Header></Header>
       <Toaster></Toaster>
       <div className="md:flex max-w-7xl mx-auto">
         <Courses addToBookmark={addToBookmark}></Courses>
-        <Sidebar bookmark={bookmark}></Sidebar>
+        <Sidebar bookmark={bookmark} creditHour={creditHour} totalPrice={totalPrice} totalCreditHour={totalCreditHour}></Sidebar>
       </div>
     </>
   );
