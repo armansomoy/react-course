@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Header from "./assets/components/Header/Header";
+import Courses from "./assets/components/Courses/Courses";
+import Sidebar from "./assets/components/Sidebar/Sidebar";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  const [bookmark, setBookmark] = useState([]);
+
+  const addToBookmark = course => {
+
+    const existingCourse = bookmark.filter(item => item.id === course.id)
+  
+    console.log('Existing Course', existingCourse);
+    if(existingCourse.length === 0){
+      const newBookmarks = [...bookmark, course];
+      setBookmark(newBookmarks);
+    } else{
+      toast.error("Course Already Exists")
+    }
+    
+  };
+  
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Header></Header>
+      <Toaster></Toaster>
+      <div className="md:flex max-w-7xl mx-auto">
+        <Courses addToBookmark={addToBookmark}></Courses>
+        <Sidebar bookmark={bookmark}></Sidebar>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
